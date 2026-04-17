@@ -43,12 +43,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .radio-opt{display:flex;align-items:center;gap:4px;cursor:pointer;font-size:11px;color:rgba(255,255,255,0.6)}
 .radio-opt input{accent-color:#e8a87c}
 .color-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
-.cswatch{width:24px;height:24px;border-radius:5px;border:1px solid rgba(255,255,255,0.15);cursor:pointer;padding:2px;flex-shrink:0}
+.cswatch{width:18px;height:18px;border-radius:5px;border:1px solid rgba(255,255,255,0.15);cursor:pointer;padding:2px;flex-shrink:0}
 .chex{font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);font-family:monospace}
 .clabel{font-size:10px;color:rgba(255,255,255,0.3);margin-left:auto}
 .msg-list{display:flex;flex-direction:column;gap:3px}
 .msg-row{background:rgba(255,255,255,0.04);border-radius:7px;padding:6px 7px;border:1px solid rgba(255,255,255,0.06)}
-.msg-inner{display:grid;grid-template-columns:13px 50px 50px 1fr 18px;gap:3px;align-items:center}
+.msg-inner{display:grid;grid-template-columns:13px 50px 60px 1fr 18px;gap:3px;align-items:center}
 .mnum{font-size:9px;color:rgba(255,255,255,0.2);font-weight:700}
 select{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:4px;padding:3px;font-size:10px;width:100%}
 select option{background:#1a1a1e}
@@ -56,10 +56,15 @@ select option{background:#1a1a1e}
 .minput::placeholder{color:rgba(255,255,255,0.2)}
 .delbtn{background:rgba(255,50,50,0.08);border:none;color:rgba(255,100,100,0.5);border-radius:3px;width:17px;height:17px;cursor:pointer;font-size:8px}
 .delbtn:hover{background:rgba(255,50,50,0.2)}
+.react-row{display:flex;align-items:center;gap:4px;margin-top:3px}
+.react-lbl{font-size:9px;color:rgba(255,255,255,0.3);flex-shrink:0}
+.react-input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:4px;padding:2px 5px;font-size:13px;width:54px;text-align:center}
+.react-input::placeholder{color:rgba(255,255,255,0.2);font-size:10px}
 .add-row{display:flex;gap:3px;flex-wrap:wrap;margin-top:5px}
 .abtn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.65);border-radius:5px;padding:4px 8px;font-size:10px;font-weight:600;cursor:pointer;transition:all .15s}
 .abtn:hover{background:rgba(255,255,255,0.11)}
 .abtn.red{color:rgba(255,100,100,0.7);border-color:rgba(255,80,80,0.15)}
+.seen-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:7px 8px;display:flex;flex-direction:column;gap:5px;margin-top:4px}
 .bottom-btns{margin-top:auto;display:flex;flex-direction:column;gap:5px}
 .gbtn{width:100%;background:linear-gradient(90deg,#e8a87c,#c45c8a,#8b5cf6);border:none;color:#fff;border-radius:9px;padding:11px;font-size:12px;font-weight:800;cursor:pointer;transition:opacity .2s}
 .gbtn:hover{opacity:.88}
@@ -105,38 +110,42 @@ select option{background:#1a1a1e}
 .ig-story-side-av svg{width:18px;height:18px;fill:#888}
 .ig-story-vline{width:2px;flex:1;background:rgba(255,255,255,0.2);border-radius:2px;min-height:20px}
 .ig-story-content{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
-/* RIGHT story: content aligns to right */
 .ig-story-block.right .ig-story-content{align-items:flex-end}
 .ig-replied-label{font-size:14px;color:rgba(255,255,255,0.5);font-weight:400}
 .ig-story-img-wrap{width:155px;border-radius:12px;overflow:hidden;background:#1c1c1c}
 .ig-story-img-wrap img{width:100%;display:block;object-fit:cover}
 
 /* MESSAGES */
-.ig-messages{padding:2px 12px 24px;display:flex;flex-direction:column;gap:3px}
+.ig-messages{padding:2px 12px 16px;display:flex;flex-direction:column;gap:4px}
 .ig-row{display:flex;align-items:flex-end;gap:7px;min-width:0}
 .ig-row.right{justify-content:flex-end}
 .ig-row.left{justify-content:flex-start}
-.ig-av{width:30px;height:30px;border-radius:50%;flex-shrink:0;overflow:hidden;background:#333;display:flex;align-items:center;justify-content:center}
-.ig-av img{width:100%;height:100%;object-fit:cover}
-.ig-av svg{width:20px;height:20px;fill:#888}
-.ig-bubble{border-radius:22px;padding:12px 16px;max-width:74%;min-width:0;word-break:break-word;overflow-wrap:anywhere}
+.ig-bubble{border-radius:22px;padding:12px 16px;min-width:0;word-break:break-word;overflow-wrap:anywhere}
 .ig-bubble-txt{font-size:16px;color:#fff;line-height:1.4;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere}
 .ig-bubble-txt.bold{font-weight:700}
-.ig-img-bubble{max-width:74%;border-radius:16px;overflow:hidden}
+.ig-img-bubble{border-radius:16px;overflow:hidden}
 .ig-img-bubble img{width:100%;max-width:200px;display:block;object-fit:cover;border-radius:16px}
+
+/* VIEW ONCE PHOTO BUBBLE */
+.ig-viewonce-bbl{border-radius:22px;padding:12px 16px;display:flex;align-items:center;gap:4px}
+.ig-viewonce-icon{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ig-viewonce-txt{font-size:16px;color:#fff;font-weight:700}
+
+/* REACTION — always bottom-left of the bubble */
+.ig-bbl-wrap{position:relative;display:inline-block;max-width:74%}
+.ig-bbl-wrap.has-react{margin-bottom:22px}
+.ig-reaction{position:absolute;bottom:-13px;left:6px;display:inline-flex;align-items:center;justify-content:center;padding:3px 7px;border-radius:100px;background:#161616;border:2.5px solid #000;font-size:10px;line-height:1;overflow:visible;z-index:2;white-space:nowrap}
+
+/* SEEN */
+.ig-seen{font-size:12px;color:rgba(255,255,255,0.45);text-align:right;padding:4px 16px 10px;}
 
 #loading{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:12px}
 #loading.show{display:flex}
 .spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,0.15);border-top-color:#e8a87c;border-radius:50%;animation:spin .8s linear infinite}
 
-/* Twemoji emoji sizing */
-img.emoji {
-  height: 1em;
-  width: 1em;
-  margin: 0 .03em 0 .05em;
-  vertical-align: -0.1em;
-  display: inline;
-}
+/* Twemoji */
+img.emoji{height:1em;width:1em;margin:0 .03em 0 .05em;vertical-align:-0.1em;display:inline}
+.ig-reaction img.emoji{height:1.4em;width:1.4em;vertical-align:middle;margin:0}
 
 /* ── RANGE PICKER MODAL ── */
 #range-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:200;align-items:center;justify-content:center}
@@ -189,10 +198,6 @@ img.emoji {
           <div class="avatar-upload" id="avatar-thumb" onclick="document.getElementById('avatar-file').click()">👤</div>
           <div style="flex:1;display:flex;flex-direction:column;gap:5px">
             <input class="fi" id="profile-name" value="Receiver" oninput="render()" placeholder="Display name...">
-            <label class="toggle-row">
-              <input type="checkbox" id="show-avatars" checked onchange="render()">
-              <span>Show avatars in preview</span>
-            </label>
           </div>
         </div>
       </div>
@@ -257,7 +262,17 @@ img.emoji {
           <button class="abtn" onclick="addMsg('right','text')">+ Right text</button>
           <button class="abtn" onclick="addMsg('left','image')">+ Left img</button>
           <button class="abtn" onclick="addMsg('right','image')">+ Right img</button>
+          <button class="abtn" onclick="addMsg('right','viewonce')">① Photo</button>
           <button class="abtn red" onclick="clearMsgs()">✕ Clear</button>
+        </div>
+
+        <!-- SEEN -->
+        <div class="seen-box" style="margin-top:6px">
+          <label class="toggle-row">
+            <input type="checkbox" id="seen-chk" onchange="render()">
+            <span>Show seen text</span>
+          </label>
+          <input class="fi" id="seen-text" value="Seen just now" oninput="render()" placeholder="e.g. Seen just now, Seen · 2m...">
         </div>
       </div>
 
@@ -268,11 +283,13 @@ img.emoji {
       <div class="sec-title">Script</div>
       <div class="code-hint">
         <b>1)</b> = Left &nbsp;|&nbsp; <b>2)</b> = Right<br>
-        <b>2) IMAGE:</b> &nbsp;— image bubble (upload after)<br>
-        <b>2) STORY_REPLY:</b> &nbsp;— sets story reply header
+        <b>2) IMAGE:</b> — image bubble (upload after)<br>
+        <b>2) VIEWONCE:</b> — view-once photo bubble<br>
+        <b>REACT:😤</b> — reaction on previous message<br>
+        <b>SEEN:just now</b> — seen text at bottom
       </div>
       <div class="code-meta"><span id="char-cnt">0/1500 characters</span></div>
-      <textarea id="code-ta" placeholder="2) STORY_REPLY:&#10;1) can u test my bf for me?&#10;2) ofc girly!&#10;2) heyy&#10;1) IMAGE:" oninput="parseCode()" rows="10"></textarea>
+      <textarea id="code-ta" placeholder="2) STORY_REPLY:&#10;1) can u test my bf for me?&#10;2) ofc girly!&#10;2) She's jealous&#10;REACT:😤&#10;2) VIEWONCE:&#10;SEEN:just now" oninput="parseCode()" rows="10"></textarea>
       <button class="abtn" id="copy-script-btn" onclick="copyScript()" style="width:100%;text-align:center;padding:6px">📋 Copy Script</button>
     </div>
 
@@ -365,14 +382,6 @@ function getRightStyle() {
   const c1=document.getElementById('c-r1').value, c2=document.getElementById('c-r2').value;
   return grad ? `background:linear-gradient(135deg,${c1},${c2})` : `background:${c1}`;
 }
-function makeAvatarEl(size, opacity) {
-  const el=document.createElement('div');
-  el.className='ig-av'; el.style.cssText=`width:${size}px;height:${size}px;opacity:${opacity};flex-shrink:0`;
-  el.innerHTML=avatarSrc
-    ? `<img src="${avatarSrc}" style="width:100%;height:100%;object-fit:cover">`
-    : `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="#888"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="#888"/></svg>`;
-  return el;
-}
 
 // ── BUILDER → CODE SYNC ──
 function syncBuilderToCode() {
@@ -383,14 +392,21 @@ function syncBuilderToCode() {
   messages.forEach(m => {
     const n = m.side==='right' ? '2' : '1';
     if (m.type==='image') lines.push(`${n}) IMAGE:`);
+    else if (m.type==='viewonce') lines.push(`${n}) VIEWONCE:`);
     else lines.push(`${n}) ${m.text||''}`);
+    if (m.reaction) lines.push(`REACT:${m.reaction}`);
   });
+  const seenChk = document.getElementById('seen-chk');
+  const seenTxt = document.getElementById('seen-text');
+  if (seenChk && seenChk.checked && seenTxt && seenTxt.value.trim()) {
+    lines.push(`SEEN:${seenTxt.value.trim()}`);
+  }
   document.getElementById('code-ta').value = lines.join('\n');
   document.getElementById('char-cnt').textContent = `${lines.join('\n').length}/1500 characters`;
   suppressCodeSync = false;
 }
 
-// ── CODE → BUILDER SYNC (parseCode) ──
+// ── CODE → BUILDER SYNC ──
 function parseCode() {
   if (suppressCodeSync) return;
   suppressBuilderSync = true;
@@ -398,9 +414,25 @@ function parseCode() {
   document.getElementById('char-cnt').textContent = `${raw.length}/1500 characters`;
   messages = [];
   let foundStory = false;
+  let seenText = null;
 
   raw.split('\n').filter(l=>l.trim()).forEach(line => {
-    const match = line.match(/^([12])\)\s*(.*)$/);
+    const trimmed = line.trim();
+
+    // SEEN line
+    if (/^SEEN:/i.test(trimmed)) {
+      seenText = trimmed.replace(/^SEEN:/i, '').trim();
+      return;
+    }
+
+    // REACT line — attaches to previous message
+    if (/^REACT:/i.test(trimmed)) {
+      const emoji = trimmed.replace(/^REACT:/i, '').trim();
+      if (messages.length > 0) messages[messages.length-1].reaction = emoji;
+      return;
+    }
+
+    const match = trimmed.match(/^([12])\)\s*(.*)$/);
     if (!match) return;
     const side = match[1]==='2' ? 'right' : 'left';
     const rest = match[2].trim();
@@ -412,13 +444,23 @@ function parseCode() {
       document.getElementById('pos-left').classList.toggle('active', storyPos==='left');
       document.getElementById('pos-right').classList.toggle('active', storyPos==='right');
     } else if (upper.startsWith('IMAGE:')) {
-      messages.push({side, type:'image', text:'', img: null});
+      messages.push({side, type:'image', text:'', img:null, reaction:null});
+    } else if (upper.startsWith('VIEWONCE:')) {
+      messages.push({side, type:'viewonce', text:'', img:null, reaction:null});
     } else {
-      messages.push({side, type:'text', text: rest, img: null});
+      messages.push({side, type:'text', text:rest, img:null, reaction:null});
     }
   });
 
-  if (!foundStory && !storySrc) { /* keep storySrc as is */ }
+  // sync seen
+  if (seenText !== null) {
+    document.getElementById('seen-chk').checked = true;
+    document.getElementById('seen-text').value = seenText;
+  } else {
+    document.getElementById('seen-chk').checked = false;
+  }
+
+  if (!foundStory && !storySrc) { /* keep */ }
   renderMsgList(); render();
   suppressBuilderSync = false;
 }
@@ -430,6 +472,7 @@ function renderMsgList() {
   messages.forEach((m,i) => {
     const row=document.createElement('div');
     row.className='msg-row';
+
     let imgHtml='';
     if (m.type==='image') {
       imgHtml = m.img
@@ -439,6 +482,16 @@ function renderMsgList() {
            </div>`
         : `<button class="abtn" style="margin-top:3px;font-size:9px;padding:2px 6px" onclick="pendingMsgIdx=${i};document.getElementById('msg-file').click()">+ upload img</button>`;
     }
+
+    const isViewonce = m.type === 'viewonce';
+    const typeOptions = `
+      <option value="text" ${m.type==='text'?'selected':''}>Text</option>
+      <option value="image" ${m.type==='image'?'selected':''}>Image</option>
+      <option value="viewonce" ${m.type==='viewonce'?'selected':''}>① Photo</option>
+    `;
+
+    const reactVal = (m.reaction||'').replace(/"/g,'&quot;');
+
     row.innerHTML=`
       <div class="msg-inner">
         <span class="mnum">${i+1}</span>
@@ -446,15 +499,18 @@ function renderMsgList() {
           <option value="left" ${m.side==='left'?'selected':''}>Left</option>
           <option value="right" ${m.side==='right'?'selected':''}>Right</option>
         </select>
-        <select onchange="messages[${i}].type=this.value;renderMsgList();render();syncBuilderToCode()">
-          <option value="text" ${m.type==='text'?'selected':''}>Text</option>
-          <option value="image" ${m.type==='image'?'selected':''}>Image</option>
-        </select>
+        <select onchange="messages[${i}].type=this.value;renderMsgList();render();syncBuilderToCode()">${typeOptions}</select>
         <input class="minput" value="${(m.text||'').replace(/"/g,'&quot;')}"
           oninput="messages[${i}].text=this.value;render();syncBuilderToCode()"
           ${m.type!=='text'?'disabled style="opacity:.3"':''}
           placeholder="Message...">
         <button class="delbtn" onclick="messages.splice(${i},1);renderMsgList();render();syncBuilderToCode()">✕</button>
+      </div>
+      <div class="react-row">
+        <span class="react-lbl">React:</span>
+        <input class="react-input" value="${reactVal}"
+          oninput="messages[${i}].reaction=this.value.trim()||null;render();syncBuilderToCode()"
+          placeholder="😤">
       </div>
       ${imgHtml}`;
     list.appendChild(row);
@@ -462,7 +518,7 @@ function renderMsgList() {
 }
 
 function addMsg(side, type) {
-  messages.push({side,type,text:'',img:null});
+  messages.push({side, type, text:'', img:null, reaction:null});
   renderMsgList(); render(); syncBuilderToCode();
 }
 function clearMsgs() { messages=[]; renderMsgList(); render(); syncBuilderToCode(); }
@@ -475,7 +531,6 @@ function render() {
   const lc=document.getElementById('c-l').value;
   const rs=getRightStyle();
   const bold=document.getElementById('bold-chk').checked;
-  const showAv=document.getElementById('show-avatars').checked;
 
   document.getElementById('capture-root').style.background=bg;
 
@@ -488,12 +543,6 @@ function render() {
 
     const sideCol=document.createElement('div');
     sideCol.className='ig-story-side';
-    if (showAv) {
-      const avEl=document.createElement('div');
-      avEl.className='ig-story-side-av';
-      avEl.innerHTML=avatarSrc?`<img src="${avatarSrc}">`:`<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="#888"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="#888"/></svg>`;
-      sideCol.appendChild(avEl);
-    }
     const vline=document.createElement('div'); vline.className='ig-story-vline';
     sideCol.appendChild(vline);
 
@@ -528,52 +577,83 @@ function render() {
     const row=document.createElement('div');
     row.className=`ig-row ${m.side}`;
 
-    if (m.side==='left') {
-      if (showAv) row.appendChild(makeAvatarEl(30, isLast?'1':'0'));
-      else { const sp=document.createElement('div'); sp.style.cssText='width:0;flex-shrink:0'; row.appendChild(sp); }
-    }
+    // Wrapper for reaction absolute positioning
+    const bblWrap=document.createElement('div');
+    const hasReact=m.reaction&&m.reaction.trim();
+    bblWrap.className='ig-bbl-wrap'+(hasReact?' has-react':'');
 
     if (m.type==='image'&&m.img) {
       const wrap=document.createElement('div'); wrap.className='ig-img-bubble';
       const img=document.createElement('img'); img.src=m.img;
-      wrap.appendChild(img); row.appendChild(wrap);
+      wrap.appendChild(img); bblWrap.appendChild(wrap);
+
+    } else if (m.type==='viewonce') {
+      const bbl=document.createElement('div'); bbl.className='ig-viewonce-bbl';
+      bbl.style.cssText=m.side==='right'?rs:`background:${lc}`;
+      let r;
+      if (m.side==='right') {
+        r=isFirst&&isLast?'22px 22px 4px 22px':isFirst?'22px 22px 4px 22px':isLast?'22px 4px 22px 22px':'22px 4px 4px 22px';
+      } else {
+        r=isFirst&&isLast?'22px 22px 22px 4px':isFirst?'22px 22px 22px 4px':isLast?'4px 22px 22px 22px':'4px 22px 22px 4px';
+      }
+      bbl.style.borderRadius=r;
+      const icon=document.createElement('div'); icon.className='ig-viewonce-icon';
+      icon.innerHTML=`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="8" stroke="#c4b2fd" stroke-width="1.8" stroke-dasharray="3.14 3.14" fill="none"/><text x="10" y="10" text-anchor="middle" dominant-baseline="central" fill="#c4b2fd" font-size="8" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,sans-serif">1</text></svg>`;
+      const txt=document.createElement('div'); txt.className='ig-viewonce-txt'; txt.textContent='Photo';
+      txt.style.cssText='color:#c4b2fd;font-size:16px;font-weight:700';
+      bbl.appendChild(icon); bbl.appendChild(txt);
+      bblWrap.appendChild(bbl);
+
     } else if (m.type==='image'&&!m.img) {
-      // placeholder bubble
       const bbl=document.createElement('div'); bbl.className='ig-bubble';
       bbl.style.cssText=(m.side==='right'?rs:`background:${lc}`)+';opacity:0.4';
       bbl.style.borderRadius='22px';
       const txt=document.createElement('div'); txt.className='ig-bubble-txt'; txt.textContent='[Image]';
-      bbl.appendChild(txt); row.appendChild(bbl);
+      bbl.appendChild(txt); bblWrap.appendChild(bbl);
+
     } else {
       const bbl=document.createElement('div'); bbl.className='ig-bubble';
       bbl.style.cssText=m.side==='right'?rs:`background:${lc}`;
       let r;
       if (m.side==='right') {
-        if (isFirst&&isLast) r='22px 22px 4px 22px';
-        else if (isFirst)    r='22px 22px 4px 22px';
-        else if (isLast)     r='22px 4px 22px 22px';
-        else                 r='22px 4px 4px 22px';
+        r=isFirst&&isLast?'22px 22px 4px 22px':isFirst?'22px 22px 4px 22px':isLast?'22px 4px 22px 22px':'22px 4px 4px 22px';
       } else {
-        if (isFirst&&isLast) r='22px 22px 22px 4px';
-        else if (isFirst)    r='22px 22px 22px 4px';
-        else if (isLast)     r='4px 22px 22px 22px';
-        else                 r='4px 22px 22px 4px';
+        r=isFirst&&isLast?'22px 22px 22px 4px':isFirst?'22px 22px 22px 4px':isLast?'4px 22px 22px 22px':'4px 22px 22px 4px';
       }
       bbl.style.borderRadius=r;
       const txt=document.createElement('div');
       txt.className='ig-bubble-txt'+(bold?' bold':'');
       txt.textContent=m.text;
-      bbl.appendChild(txt); row.appendChild(bbl);
+      bbl.appendChild(txt); bblWrap.appendChild(bbl);
     }
+
+    // REACTION — absolutely overlapping bottom-left of bubble
+    if (hasReact) {
+      const reactEl=document.createElement('div');
+      reactEl.className='ig-reaction';
+      reactEl.textContent=m.reaction.trim();
+      bblWrap.appendChild(reactEl);
+    }
+
+    row.appendChild(bblWrap);
     container.appendChild(row);
   });
 
-  // Apply iPhone (Twemoji) emojis to entire preview
+  // SEEN TEXT
+  const seenChk = document.getElementById('seen-chk');
+  const seenTxtEl = document.getElementById('seen-text');
+  if (seenChk && seenChk.checked && seenTxtEl && seenTxtEl.value.trim()) {
+    const seenDiv=document.createElement('div');
+    seenDiv.className='ig-seen';
+    seenDiv.textContent=seenTxtEl.value.trim();
+    container.appendChild(seenDiv);
+  }
+
+  // Apply Twemoji
   if (typeof twemoji !== 'undefined') {
     twemoji.parse(document.getElementById('capture-root'), {
-      folder: 'svg',
-      ext: '.svg',
-      base: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/'
+      folder:'svg', ext:'.svg',
+      base:'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/'
     });
   }
 }
@@ -606,14 +686,12 @@ function startCrop() {
   document.getElementById('co-right').style.cssText='display:none';
   document.getElementById('crop-confirm').style.display='none';
   document.getElementById('crop-cancel').style.display='block';
-  document.getElementById('crop-hint').style.display='inline';
 }
 
 function cancelCrop() {
   document.getElementById('crop-overlay').classList.remove('active');
   document.getElementById('crop-confirm').style.display='none';
   document.getElementById('crop-cancel').style.display='none';
-  document.getElementById('crop-hint').style.display='none';
   cropState.active=false;
 }
 
@@ -661,17 +739,13 @@ function confirmCrop() {
   const areaRect=area.getBoundingClientRect();
   const rootRect=root.getBoundingClientRect();
 
-  // crop coords relative to preview-area
   const x=Math.min(cropState.x0,cropState.x1);
   const y=Math.min(cropState.y0,cropState.y1);
   const w=Math.abs(cropState.x1-cropState.x0);
   const h=Math.abs(cropState.y1-cropState.y0);
 
-  // offset of capture-root inside preview-area
   const offX=rootRect.left-areaRect.left;
   const offY=rootRect.top-areaRect.top;
-
-  // crop in capture-root coordinates
   const cropX=x-offX, cropY=y-offY;
 
   document.getElementById('loading').classList.add('show');
@@ -707,13 +781,12 @@ function buildRangeList() {
   const list = document.getElementById('range-list');
   list.innerHTML = '';
 
-  // Build items: story header + each message
   const items = [];
   if (storySrc) items.push({id:'story', label:'Story reply header', side:'story', type:'story'});
   messages.forEach((m, i) => {
     items.push({
       id: i,
-      label: m.type==='image' ? '[Image]' : (m.text || '[empty]'),
+      label: m.type==='image' ? '[Image]' : m.type==='viewonce' ? '[① Photo]' : (m.text || '[empty]'),
       side: m.side,
       type: m.type
     });
@@ -731,7 +804,8 @@ function buildRangeList() {
 
     const sideClass = item.side === 'story' ? 'story' : item.side;
     const sideLabel = item.side === 'story' ? 'STORY' : item.side.toUpperCase();
-    const typeTag = item.type === 'image' ? '<span class="ri-tag">IMG</span>' : '';
+    const typeTag = item.type === 'image' ? '<span class="ri-tag">IMG</span>'
+                  : item.type === 'viewonce' ? '<span class="ri-tag">① PHOTO</span>' : '';
 
     el.innerHTML = `
       <span class="ri-num">${idx+1}</span>
@@ -742,13 +816,10 @@ function buildRangeList() {
 
     el.addEventListener('click', () => {
       if (rangeStart === -1 || (rangeStart !== -1 && rangeEnd !== -1)) {
-        // Set start
         rangeStart = idx; rangeEnd = -1;
       } else if (idx < rangeStart) {
-        // Clicked before start — make this the new start
         rangeStart = idx; rangeEnd = -1;
       } else {
-        // Set end
         rangeEnd = idx;
       }
       updateRangeUI(items.length);
@@ -771,20 +842,14 @@ function updateRangeUI(total) {
   });
   const ready = rangeStart !== -1 && rangeEnd !== -1 && rangeEnd >= rangeStart;
   document.getElementById('range-dl-btn').disabled = !ready;
-  // also allow single item (start = end)
   if (rangeStart !== -1 && rangeEnd === -1) {
     document.getElementById('range-dl-btn').disabled = false;
   }
 }
 
 function getOffsetFromRoot(el, root) {
-  // Walk up the DOM summing offsetTop until we hit the root
-  let top = 0;
-  let cur = el;
-  while (cur && cur !== root) {
-    top += cur.offsetTop;
-    cur = cur.offsetParent;
-  }
+  let top = 0, cur = el;
+  while (cur && cur !== root) { top += cur.offsetTop; cur = cur.offsetParent; }
   return top;
 }
 
@@ -795,9 +860,8 @@ function doRangeDownload() {
 
   const root = document.getElementById('capture-root');
   const storyHdr = document.getElementById('ig-story-hdr');
-  const msgRows = Array.from(document.querySelectorAll('#ig-msgs .ig-row'));
+  const msgRows = Array.from(document.querySelectorAll('#ig-msgs > *'));
 
-  // Map item indices to DOM elements
   let domEls = [];
   if (storySrc) domEls.push(storyHdr);
   msgRows.forEach(el => domEls.push(el));
@@ -808,7 +872,6 @@ function doRangeDownload() {
   const lastEl  = domEls[Math.min(e, domEls.length-1)];
   if (!firstEl || !lastEl) return;
 
-  // Use offsetTop relative to capture-root — unaffected by scroll or screen zoom
   const pad = 20;
   const topPx    = Math.max(0, getOffsetFromRoot(firstEl, root) - pad);
   const bottomPx = getOffsetFromRoot(lastEl, root) + lastEl.offsetHeight + pad;
@@ -841,7 +904,6 @@ function doRangeDownload() {
     alert('Try Chrome.');
   });
 }
-
 </script>
 
 <!-- RANGE PICKER MODAL -->
