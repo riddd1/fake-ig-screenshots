@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instagram DM Generator</title>
+<title>Instagram DM Generator - Slideshow</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/umd/ffmpeg.js"></script>
+<script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -142,6 +144,8 @@ select option{background:#1a1a1e}
 #loading{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:12px}
 #loading.show{display:flex}
 .spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,0.15);border-top-color:#e8a87c;border-radius:50%;animation:spin .8s linear infinite}
+.loading-text{font-size:12px;color:rgba(255,255,255,0.6)}
+.loading-progress{font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px}
 
 /* Twemoji */
 img.emoji{height:1em;width:1em;margin:0 .03em 0 .05em;vertical-align:-0.1em;display:inline}
@@ -175,6 +179,44 @@ img.emoji{height:1em;width:1em;margin:0 .03em 0 .05em;vertical-align:-0.1em;disp
 .range-dl{background:linear-gradient(90deg,#e8a87c,#8b5cf6);color:#fff}
 .range-dl:disabled{opacity:.35;cursor:default}
 .range-cancel-btn{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6)}
+
+/* ── SLIDESHOW MODAL ── */
+#slideshow-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:200;align-items:center;justify-content:center}
+#slideshow-modal.show{display:flex}
+.slideshow-box{background:#141416;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;width:420px;max-height:85vh;display:flex;flex-direction:column;gap:12px}
+.slideshow-title{font-size:13px;font-weight:700;color:#fff}
+.slideshow-sub{font-size:11px;color:rgba(255,255,255,0.4)}
+.universal-timing{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px}
+.universal-timing label{font-size:11px;color:rgba(255,255,255,0.6);flex-shrink:0}
+.universal-timing input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:5px;padding:5px 8px;font-size:11px;width:70px}
+.universal-timing button{background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);color:#c4b5fd;border-radius:5px;padding:5px 12px;font-size:10px;font-weight:600;cursor:pointer;transition:all .15s;margin-left:auto}
+.universal-timing button:hover{background:rgba(139,92,246,0.3)}
+.slideshow-list{overflow-y:auto;display:flex;flex-direction:column;gap:4px;flex:1;max-height:300px}
+.slideshow-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);transition:all .15s}
+.slideshow-item.selected{border-color:#4ade80;background:rgba(74,222,128,0.08)}
+.slideshow-item input[type="checkbox"]{accent-color:#4ade80;width:14px;height:14px;cursor:pointer}
+.si-num{font-size:10px;color:rgba(255,255,255,0.3);font-weight:700;width:16px;flex-shrink:0}
+.si-side{font-size:9px;font-weight:700;padding:2px 5px;border-radius:4px;flex-shrink:0}
+.si-side.left{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5)}
+.si-side.right{background:rgba(139,92,246,0.3);color:#c4b5fd}
+.si-side.story{background:rgba(232,168,124,0.2);color:#e8a87c}
+.si-text{font-size:11px;color:rgba(255,255,255,0.75);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si-tag{font-size:9px;padding:2px 5px;border-radius:4px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.35);flex-shrink:0}
+.si-timing{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.si-timing input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:4px;padding:3px 6px;font-size:10px;width:45px;text-align:center}
+.si-timing span{font-size:10px;color:rgba(255,255,255,0.3)}
+.slideshow-options{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.slideshow-option-row{display:flex;align-items:center;gap:8px}
+.slideshow-option-row label{font-size:11px;color:rgba(255,255,255,0.6);flex:1}
+.slideshow-option-row select{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:5px;padding:4px 8px;font-size:10px}
+.slideshow-option-row input[type="checkbox"]{accent-color:#8b5cf6;width:14px;height:14px}
+.slideshow-info{background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:6px;padding:8px;font-size:10px;color:rgba(255,255,255,0.7);line-height:1.5}
+.slideshow-info strong{color:#c4b5fd}
+.slideshow-actions{display:flex;gap:6px}
+.slideshow-actions button{flex:1;padding:9px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s}
+.slideshow-generate{background:linear-gradient(90deg,#e8a87c,#c45c8a,#8b5cf6);color:#fff}
+.slideshow-generate:disabled{opacity:.35;cursor:default}
+.slideshow-cancel{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js" crossorigin="anonymous"></script>
 </head>
@@ -296,6 +338,7 @@ img.emoji{height:1em;width:1em;margin:0 .03em 0 .05em;vertical-align:-0.1em;disp
     <div class="bottom-btns">
       <button class="gbtn" onclick="copyHTML()" id="copy-html-btn">📋 Copy Preview HTML</button>
       <button class="gbtn sec" onclick="openRangePicker()">⬇ Download PNG</button>
+      <button class="gbtn sec" onclick="openSlideshowModal()">🎬 Create Slideshow</button>
     </div>
   </div>
 
@@ -322,7 +365,11 @@ img.emoji{height:1em;width:1em;margin:0 .03em 0 .05em;vertical-align:-0.1em;disp
   </div>
 </div>
 
-<div id="loading"><div class="spinner"></div><p style="font-size:12px;color:rgba(255,255,255,0.6)">Generating...</p></div>
+<div id="loading">
+  <div class="spinner"></div>
+  <p class="loading-text">Generating...</p>
+  <p class="loading-progress" id="loading-progress"></p>
+</div>
 
 <input type="file" id="avatar-file" accept="image/*" style="display:none" onchange="handleAvatar(event)">
 <input type="file" id="story-file" accept="image/*" style="display:none" onchange="handleStory(event)">
@@ -904,6 +951,311 @@ function doRangeDownload() {
     alert('Try Chrome.');
   });
 }
+
+// ══════════════════════════════════════════════════════════════════════
+// ── SLIDESHOW MAKER ──
+// ══════════════════════════════════════════════════════════════════════
+
+let slideshowItems = [];
+let slideshowTimings = {};
+let slideshowTransition = 'none';
+let slideshowIncludeStory = true;
+
+function openSlideshowModal() {
+  buildSlideshowItems();
+  document.getElementById('slideshow-modal').classList.add('show');
+  updateSlideshowUI();
+}
+
+function closeSlideshowModal() {
+  document.getElementById('slideshow-modal').classList.remove('show');
+}
+
+function buildSlideshowItems() {
+  slideshowItems = [];
+  slideshowTimings = {};
+  
+  // Load saved timings from localStorage
+  const savedTimings = localStorage.getItem('slideshow_timings');
+  if (savedTimings) {
+    try {
+      slideshowTimings = JSON.parse(savedTimings);
+    } catch(e) {}
+  }
+  
+  let idx = 0;
+  if (storySrc) {
+    slideshowItems.push({
+      id: 'story',
+      label: 'Story reply header',
+      side: 'story',
+      type: 'story',
+      selected: true
+    });
+    if (!slideshowTimings['story']) slideshowTimings['story'] = 0.8;
+    idx++;
+  }
+  
+  messages.forEach((m, i) => {
+    const itemId = `msg_${i}`;
+    slideshowItems.push({
+      id: itemId,
+      label: m.type==='image' ? '[Image]' : m.type==='viewonce' ? '[① Photo]' : (m.text || '[empty]'),
+      side: m.side,
+      type: m.type,
+      selected: true
+    });
+    if (!slideshowTimings[itemId]) slideshowTimings[itemId] = 0.8;
+    idx++;
+  });
+  
+  if (slideshowItems.length === 0) {
+    alert('No messages to create slideshow');
+    return;
+  }
+  
+  renderSlideshowList();
+}
+
+function renderSlideshowList() {
+  const list = document.getElementById('slideshow-list');
+  list.innerHTML = '';
+  
+  if (slideshowItems.length === 0) {
+    list.innerHTML = '<div style="font-size:11px;color:rgba(255,255,255,0.3);padding:12px;text-align:center">No messages yet</div>';
+    return;
+  }
+  
+  slideshowItems.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'slideshow-item';
+    if (item.selected) el.classList.add('selected');
+    
+    const sideClass = item.side === 'story' ? 'story' : item.side;
+    const sideLabel = item.side === 'story' ? 'STORY' : item.side.toUpperCase();
+    const typeTag = item.type === 'image' ? '<span class="si-tag">IMG</span>'
+                  : item.type === 'viewonce' ? '<span class="si-tag">① PHOTO</span>' : '';
+    
+    const timing = slideshowTimings[item.id] || 0.8;
+    
+    el.innerHTML = `
+      <input type="checkbox" ${item.selected ? 'checked' : ''} onchange="toggleSlideshowItem(${idx})" />
+      <span class="si-num">${idx+1}</span>
+      <span class="si-side ${sideClass}">${sideLabel}</span>
+      <span class="si-text">${item.label.replace(/</g,'&lt;').substring(0,50)}</span>
+      ${typeTag}
+      <div class="si-timing">
+        <input type="number" step="0.1" min="0.1" max="10" value="${timing}" 
+          onchange="updateSlideshowTiming('${item.id}', this.value)" />
+        <span>s</span>
+      </div>
+    `;
+    
+    list.appendChild(el);
+  });
+  
+  updateSlideshowUI();
+}
+
+function toggleSlideshowItem(idx) {
+  slideshowItems[idx].selected = !slideshowItems[idx].selected;
+  renderSlideshowList();
+}
+
+function updateSlideshowTiming(itemId, value) {
+  const val = parseFloat(value);
+  if (!isNaN(val) && val >= 0.1) {
+    slideshowTimings[itemId] = val;
+    // Save to localStorage
+    localStorage.setItem('slideshow_timings', JSON.stringify(slideshowTimings));
+    updateSlideshowUI();
+  }
+}
+
+function applyUniversalTiming() {
+  const input = document.getElementById('universal-timing-input');
+  const val = parseFloat(input.value);
+  if (!isNaN(val) && val >= 0.1) {
+    slideshowItems.forEach(item => {
+      slideshowTimings[item.id] = val;
+    });
+    localStorage.setItem('slideshow_timings', JSON.stringify(slideshowTimings));
+    renderSlideshowList();
+  }
+}
+
+function updateSlideshowUI() {
+  const selectedItems = slideshowItems.filter(item => item.selected);
+  const totalTime = selectedItems.reduce((sum, item) => sum + (slideshowTimings[item.id] || 0.8), 0);
+  
+  document.getElementById('slideshow-duration').textContent = `Estimated Duration: ${totalTime.toFixed(1)} seconds`;
+  document.getElementById('slideshow-generate-btn').disabled = selectedItems.length === 0;
+}
+
+async function generateSlideshow() {
+  const selectedItems = slideshowItems.filter(item => item.selected);
+  if (selectedItems.length === 0) {
+    alert('Please select at least one item');
+    return;
+  }
+
+  closeSlideshowModal();
+
+  const root = document.getElementById('capture-root');
+  const storyHdr = document.getElementById('ig-story-hdr');
+  const msgRows = Array.from(document.querySelectorAll('#ig-msgs > *'));
+
+  const allElements = [];
+  if (storySrc) allElements.push({ el: storyHdr, id: 'story', nat: 'block' });
+  messages.forEach((m, i) => {
+    if (msgRows[i]) allElements.push({ el: msgRows[i], id: `msg_${i}`, nat: 'flex' });
+  });
+
+  const selected = allElements.filter(item =>
+    selectedItems.find(si => si.id === item.id)
+  );
+
+  if (selected.length === 0) return;
+
+  const bgColor = document.getElementById('c-bg').value;
+  const frames = [];
+  const durations = [];
+
+  document.getElementById('loading').classList.add('show');
+
+  try {
+    // Hide every element in the conversation
+    allElements.forEach(item => { item.el.style.display = 'none'; });
+
+    // Capture one canvas per step, revealing cumulatively
+    for (let i = 0; i < selected.length; i++) {
+      document.getElementById('loading-progress').textContent =
+        `Capturing frame ${i + 1} / ${selected.length}…`;
+
+      for (let j = 0; j <= i; j++) {
+        selected[j].el.style.display = selected[j].nat;
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      const canvas = await html2canvas(root, {
+        scale: 4,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: bgColor,
+        logging: false
+      });
+
+      frames.push(canvas);
+      durations.push(slideshowTimings[selected[i].id] || 0.8);
+    }
+
+    // Restore original visibility
+    allElements.forEach(item => { item.el.style.display = ''; });
+
+    document.getElementById('loading-progress').textContent = 'Encoding video…';
+    await createVideoFromFrames(frames, durations);
+
+  } catch (err) {
+    allElements.forEach(item => { item.el.style.display = ''; });
+    console.error(err);
+    alert('Failed to generate slideshow. Please try Chrome or Edge.');
+  }
+
+  document.getElementById('loading').classList.remove('show');
+  document.getElementById('loading-progress').textContent = '';
+}
+
+function createVideoFromFrames(frames, durations) {
+  return new Promise((resolve) => {
+    const fps = 30;
+
+    // Use native capture width — no downscaling, pure quality.
+    // Height = width × 16/9 so the canvas is always 9:16 (TikTok).
+    // Content is shorter than the canvas on early frames → black bars shrink
+    // as each new message appears, giving the organic "growing" reveal effect.
+    const videoW = frames[0].width;                     // e.g. 390×4 = 1560 px
+    const videoH = Math.round(videoW * 16 / 9);         // e.g. 2773 px
+
+    const videoCanvas = document.createElement('canvas');
+    videoCanvas.width  = videoW;
+    videoCanvas.height = videoH;
+    const ctx = videoCanvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const bgColor = document.getElementById('c-bg').value;
+
+    let currentIdx = 0;
+    let frameStart  = null;
+    let rafId       = null;
+
+    function drawCurrent() {
+      const frame = frames[currentIdx];
+      // Letterbox is always black regardless of chat background color.
+      // Content is centered; as messages grow the block rises naturally.
+      const dy = Math.round((videoH - frame.height) / 2);
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, videoW, videoH);
+      ctx.drawImage(frame, 0, dy);
+    }
+
+    const stream = videoCanvas.captureStream(fps);
+
+    // Prefer MP4 so it plays natively on Mac / iPhone / Windows.
+    const mimeTypes = [
+      'video/mp4;codecs=avc1.42E01E',
+      'video/mp4',
+      'video/webm;codecs=vp9',
+      'video/webm;codecs=vp8',
+      'video/webm'
+    ];
+    const mimeType = mimeTypes.find(mt => {
+      try { return MediaRecorder.isTypeSupported(mt); } catch(e) { return false; }
+    }) || 'video/webm';
+    const ext = mimeType.startsWith('video/mp4') ? 'mp4' : 'webm';
+
+    const mediaRecorder = new MediaRecorder(stream, {
+      mimeType,
+      videoBitsPerSecond: 25_000_000   // 25 Mbps — lossless-looking at this res
+    });
+    const chunks = [];
+    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+
+    mediaRecorder.onstop = () => {
+      cancelAnimationFrame(rafId);
+      const blob = new Blob(chunks, { type: mimeType });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = `ig-dm-slideshow.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 3000);
+      resolve();
+    };
+
+    // RAF loop keeps the canvas stream alive between frame transitions.
+    function loop(ts) {
+      if (!frameStart) frameStart = ts;
+      if (ts - frameStart >= (durations[currentIdx] || 0.8) * 1000) {
+        currentIdx++;
+        if (currentIdx >= frames.length) {
+          mediaRecorder.stop();
+          return;
+        }
+        frameStart = ts;
+      }
+      drawCurrent();
+      rafId = requestAnimationFrame(loop);
+    }
+
+    drawCurrent();
+    mediaRecorder.start(100);  // flush encoded data every 100 ms
+    rafId = requestAnimationFrame(loop);
+  });
+}
 </script>
 
 <!-- RANGE PICKER MODAL -->
@@ -925,5 +1277,49 @@ function doRangeDownload() {
     </div>
   </div>
 </div>
+
+<!-- SLIDESHOW MODAL -->
+<div id="slideshow-modal">
+  <div class="slideshow-box">
+    <div>
+      <div class="slideshow-title">Create Slideshow Video</div>
+      <div class="slideshow-sub">Each item reveals one at a time — exports as .webm video</div>
+    </div>
+    
+    <div class="universal-timing">
+      <label>Universal Delay:</label>
+      <input type="number" id="universal-timing-input" step="0.1" min="0.1" max="10" value="0.8" />
+      <span style="font-size:10px;color:rgba(255,255,255,0.3)">seconds</span>
+      <button onclick="applyUniversalTiming()">Apply to All</button>
+    </div>
+    
+    <div class="slideshow-list" id="slideshow-list"></div>
+    
+    <div class="slideshow-options">
+      <div class="slideshow-option-row">
+        <label>Transition Effect:</label>
+        <select id="slideshow-transition" onchange="slideshowTransition=this.value">
+          <option value="none">None (Instant)</option>
+          <option value="fade">Fade</option>
+          <option value="slide">Slide Down</option>
+        </select>
+      </div>
+      <div class="slideshow-option-row">
+        <label>Include Story Header:</label>
+        <input type="checkbox" id="slideshow-story-chk" checked onchange="slideshowIncludeStory=this.checked" />
+      </div>
+    </div>
+    
+    <div class="slideshow-info" id="slideshow-duration">
+      <strong>Estimated Duration:</strong> 0.0 seconds
+    </div>
+    
+    <div class="slideshow-actions">
+      <button class="slideshow-generate" id="slideshow-generate-btn" onclick="generateSlideshow()" disabled>🎬 Generate Video</button>
+      <button class="slideshow-cancel" onclick="closeSlideshowModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
