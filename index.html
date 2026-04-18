@@ -269,24 +269,24 @@ img.emoji{height:1em;width:1em;margin:0 .03em 0 .05em;vertical-align:-0.1em;disp
       <div>
         <div class="sec-title">Appearance</div>
         <div class="color-opts">
-          <label class="radio-opt"><input type="radio" name="cmode" value="solid" checked onchange="render()"> Solid</label>
-          <label class="radio-opt"><input type="radio" name="cmode" value="gradient" onchange="render()"> Gradient</label>
+          <label class="radio-opt"><input type="radio" name="cmode" value="solid" onchange="render()"> Solid</label>
+          <label class="radio-opt"><input type="radio" name="cmode" value="gradient" checked onchange="render()"> Gradient</label>
         </div>
         <div class="color-row">
-          <input type="color" class="cswatch" id="c-r1" value="#8B5CF6" onchange="syncHex('c-r1','h-r1');render()">
-          <span class="chex" id="h-r1">#8B5CF6</span><span class="clabel">Right bubble</span>
+          <input type="color" class="cswatch" id="c-r1" value="#6e49dd" onchange="syncHex('c-r1','h-r1');render()">
+          <span class="chex" id="h-r1">#6E49DD</span><span class="clabel">Right bubble</span>
         </div>
-        <div class="color-row" id="grad-row" style="display:none">
-          <input type="color" class="cswatch" id="c-r2" value="#c45c8a" onchange="syncHex('c-r2','h-r2');render()">
-          <span class="chex" id="h-r2">#c45c8a</span><span class="clabel">Gradient end</span>
+        <div class="color-row" id="grad-row">
+          <input type="color" class="cswatch" id="c-r2" value="#425ee6" onchange="syncHex('c-r2','h-r2');render()">
+          <span class="chex" id="h-r2">#425EE6</span><span class="clabel">Gradient end</span>
         </div>
         <div class="color-row">
           <input type="color" class="cswatch" id="c-l" value="#262626" onchange="syncHex('c-l','h-l');render()">
           <span class="chex" id="h-l">#262626</span><span class="clabel">Left bubble</span>
         </div>
         <div class="color-row">
-          <input type="color" class="cswatch" id="c-bg" value="#000000" onchange="syncHex('c-bg','h-bg');render()">
-          <span class="chex" id="h-bg">#000000</span><span class="clabel">Background</span>
+          <input type="color" class="cswatch" id="c-bg" value="#0c1014" onchange="syncHex('c-bg','h-bg');render()">
+          <span class="chex" id="h-bg">#0C1014</span><span class="clabel">Background</span>
         </div>
         <label class="toggle-row" style="margin-top:2px">
           <input type="checkbox" id="bold-chk" onchange="render()">
